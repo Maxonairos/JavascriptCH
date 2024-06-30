@@ -5,12 +5,14 @@ const cuota9 = 60;
 const cuota12 = 100;
 
 function confirmarCuotas(){
-    let selection = parseInt(prompt(`-1 cuota(sin recargo) \n -3 cuotas (15% de recargo) \n -6 cuotas(30% de recargo) \n -9 cuotas(60% de recargo) \n -12 cuotas(100% de recargo) `))
+    let selection = parseInt(prompt(`-1 cuota(sin recargo) \n-3 cuotas (15% de recargo) \n-6 cuotas(30% de recargo) \n-9 cuotas(60% de recargo) \n-12 cuotas(100% de recargo)\n\n Si queres cancelar la compra presiona "2"`))
     let resultado
     if (isNaN(selection)) {
         alert('Ingresar un valor númerico por favor');
     } else if (selection > 12){
         alert('Supera la cuota máxima');
+    } else if (selection == '2'){
+        return resultado = 2;
     } else {
         switch (selection){
             case 1:
@@ -63,16 +65,20 @@ function calcularCuotas(valor,cuota){
 }
 
 function compra(){
-    alert(`Felicitaciones!!! \n Realizaste la compra de tu producto con un valor de ${valorProd}$ \n `)
+    alert(`Felicitaciones!!! \nRealizaste la compra de tu producto con un valor de ${valorProd}$ \n `)
     let resultado = 0;
     while (resultado == 0){
-        alert(`a continuación te detallamos las cuotas`);
+        alert(`a continuación te detallamos las cuotas para financiarlo`);
         let resultado = confirmarCuotas();
         console.log('confirmar cuotas', resultado);
-        if (resultado > 0){
-            alert(`El producto tiene un valor final de ${resultado}$ fin de la compra.`)
+        if (resultado == 2){
+            alert(`Se ha cancelado la compra de tu producto`);
             return resultado
-        }
+            
+        } else if (resultado > 0){
+            alert(`El producto tiene un valor final de ${resultado}$ \nfin de la compra.`)
+            return resultado
+        }  
 
         
     }
