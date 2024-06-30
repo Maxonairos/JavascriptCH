@@ -11,7 +11,7 @@ let mensajeRepe = ' (Nuevamente) ';
 const mensaje1 = 'Cuota';
 const mensaje2 = 'Cuotas con interés';
 function confirmarCuotas(){
-    let selection = parseInt(prompt(`-1 cuota(sin recargo) \n-3 cuotas (15% de recargo) \n-6 cuotas(30% de recargo) \n-9 cuotas(60% de recargo) \n-12 cuotas(100% de recargo)\n\n si queres cancelar la compra presiona "2"`))
+    let selection = parseInt(prompt(`-1 cuota (sin recargo) \n-3 cuotas (15% de recargo) \n-6 cuotas (30% de recargo) \n-9 cuotas (60% de recargo) \n-12 cuotas(100% de recargo)\n\n si queres cancelar la compra presiona "2"`))
     let resultado;
     veces++;
     if (isNaN(selection)) {
