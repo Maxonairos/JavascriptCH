@@ -210,11 +210,7 @@ function selecionarProducto(){
         
         } else if (idExiste(selection)){
                     const filtro = productosDisponibles.filter((producto) => producto.id == selection);
-                    // filtro.forEach(producto => {
-                    //     console.log(` este es el filtro ${producto.id} - ${producto.nombre} - ${producto.marca}: $${producto.precio} ARS - Cantidad: ${producto.cantidad}`);
-                    //     });
                     carrito.push(filtro[0]);
-                    // console.log("agrego lo filtrado al carrito");
                     console.log("Carrito:")
                     carrito.forEach(producto=> {
                         console.log(`${producto.id} - ${producto.nombre} - ${producto.marca}: $${producto.precio} ARS`);
