@@ -169,13 +169,17 @@ function comprar(){
 }
 
 
-
+productosActualizados = productos;
 let mensajeBienvenida = `Bienvenido a la tienda, `
 let mensajeMenu = " ";
 function seguirComprando(carro){
     if (carro.length !== 0) {
-        mensajeMenu = `, si ya completaste tu compra ingresa el valor -1`;
+        mensajeMenu = `, si ya completaste tu compra ingresa el valor -1, si deseas vaciar el carrito ingresa -2`;
         mensajeBienvenida = ``;
+    }
+    else {
+        mensajeBienvenida = `Bienvenido a la tienda, `
+        mensajeMenu = " ";
     }
 }
 
@@ -184,7 +188,7 @@ function selecionarProducto(){
         seguirComprando(carrito);
         alert (`${mensajeBienvenida}a continuación te vamos a mostrar el listado de productos disponibles para comprar ${mensajeMenu}`);
         console.log(`Listado de productos actualizados: \n`)
-        let productosDisponibles = productos.filter((producto) => producto.cantidad > 0);
+        let productosDisponibles = productosActualizados.filter((producto) => producto.cantidad > 0);
         productosDisponibles.forEach(producto => {
         console.log(`${producto.id} - ${producto.nombre} - ${producto.marca}: $${producto.precio} ARS - Cantidad: ${producto.cantidad}`);
         });
@@ -206,7 +210,12 @@ function selecionarProducto(){
             });
             valorProd = totalCarrito;
             comprar();
-            productosDisponibles = productos;
+            productosActualizados = productos;
+        
+        } else if (selection == -2){
+            carrito.splice(0);
+            console.log(`Tu carrito quedó vacio`)
+            productosActualizados = productos;
         
         } else if (idExiste(selection)){
                     const filtro = productosDisponibles.filter((producto) => producto.id == selection);
@@ -216,7 +225,7 @@ function selecionarProducto(){
                         console.log(`${producto.id} - ${producto.nombre} - ${producto.marca}: $${producto.precio} ARS`);
                     });
                     console.log(`Total Productos: ${carrito.length}`)
-                    productos = productosDisponibles.map (producto => {
+                    productosActualizados = productosDisponibles.map (producto => {
                         if (producto.id === selection) {
                         return {
                             ...producto,
