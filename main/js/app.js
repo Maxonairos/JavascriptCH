@@ -1,5 +1,4 @@
-let valorProd;
-let estadoCompra = 0;
+
 let productos = [
     {
         id: 1,
@@ -71,6 +70,8 @@ const cuota3 = 15;
 const cuota6 = 30;
 const cuota9 = 60;
 const cuota12 = 100;
+let valorProd;
+let estadoCompra = 0;
 let cuotaElegida;
 let mensaje;
 let veces;
@@ -78,6 +79,9 @@ let mensajeStandard = ' ';
 let mensajeRepe = ' (Nuevamente) ';
 const mensaje1 = 'Cuota';
 const mensaje2 = 'Cuotas con interés';
+productosActualizados = productos;
+let mensajeBienvenida = `Bienvenido a la tienda, `
+let mensajeMenu = " ";
 function confirmarCuotas(){
     let selection = parseInt(prompt(`-1 cuota (sin recargo) \n-3 cuotas (15% de recargo) \n-6 cuotas (30% de recargo) \n-9 cuotas (60% de recargo) \n-12 cuotas(100% de recargo)\n\n si queres cancelar la compra presiona "2"`))
     let resultado;
@@ -123,8 +127,6 @@ function confirmarCuotas(){
     }
 }
 
-    
-
 function calcularCuotas(valor,cuota){
     let resultado
     switch (cuota){
@@ -168,10 +170,6 @@ function comprar(){
     }    
 }
 
-
-productosActualizados = productos;
-let mensajeBienvenida = `Bienvenido a la tienda, `
-let mensajeMenu = " ";
 function seguirComprando(carro){
     if (carro.length !== 0) {
         mensajeMenu = `, si ya completaste tu compra ingresa el valor -1, si deseas vaciar el carrito ingresa -2`;
@@ -239,6 +237,5 @@ function selecionarProducto(){
         }   
     }
 }  
-
 
 selecionarProducto();
