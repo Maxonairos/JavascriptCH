@@ -1,4 +1,72 @@
-let valorProd = 230000;
+let valorProd;
+let estadoCompra = 0;
+let productos = [
+    {
+        id: 1,
+        nombre: "Laptop",
+        marca: "HP",
+        precio: 1200000,
+        cantidad: 2,
+        descripcion: "Laptop HP con procesador Intel Core i5 y 8GB RAM"
+    },
+    {   
+        id: 2,
+        nombre: "Monitor",
+        marca: "Dell",
+        precio: 300000,
+        cantidad: 6,
+        descripcion: "Monitor Dell de 24 pulgadas Full HD"
+    },
+    {   
+        id: 3,
+        nombre: "Teclado",
+        marca: "Logitech",
+        precio: 50000,
+        cantidad: 10,
+        descripcion: "Teclado inalámbrico Logitech con retroiluminación"
+    },
+    {   
+        id: 4,
+        nombre: "Mouse",
+        marca: "Microsoft",
+        precio: 5000,
+        cantidad: 10,
+        descripcion: "Mouse óptico Microsoft con 5 botones programables"
+    },
+    {
+        id: 5,
+        nombre: "PC Gamer",
+        marca: "Gigabyte",
+        precio: 1800000,
+        cantidad: 5,
+        descripcion: "PC Gamer con Ryzen 7, RTX 3060, 16GB RAM y SSD 1TB"
+    },
+    {
+        id: 6,
+        nombre: "Monitor Gaming",
+        marca: "Acer",
+        precio: 500000,
+        cantidad: 5,
+        descripcion: "Monitor gaming de 27 pulgadas, 144Hz, resolución 2560x1440"
+    },
+    {
+        id: 7,
+        nombre: "Teclado Mecánico",
+        marca: "Corsair",
+        precio: 12000,
+        cantidad: 0,
+        descripcion: "Teclado mecánico RGB con switches Cherry MX Red"
+    },
+    {
+        id: 8,
+        nombre: "Mouse Gaming",
+        marca: "Razer",
+        precio: 8000,
+        cantidad: 4,
+        descripcion: "Mouse gaming con sensor óptico 16000 DPI"
+    }
+];
+const carrito = [];
 const cuota3 = 15;
 const cuota6 = 30;
 const cuota9 = 60;
@@ -81,8 +149,8 @@ function calcularCuotas(valor,cuota){
     
 }
 
-function compra(){
-    alert(`Felicitaciones!!! \nRealizaste la compra de tu producto con un valor de ${valorProd}$ \n `)
+function comprar(){
+    alert(`Felicitaciones!!! \nRealizaste la compra con un valor de ${valorProd}$ \n `)
     let resultado = 0;
     let mensaje3 = mensajeStandard  
     while (resultado == 0){
@@ -90,14 +158,82 @@ function compra(){
         let resultado = confirmarCuotas();
         mensaje3 = mensajeRepe;
         if (resultado == 2){
-            alert(`Se ha cancelado la compra de tu producto.\nVuelve pronto!!!`);
+            alert(`Se ha cancelado la compra.\nVuelve pronto!!!`);
             return resultado
             
         } else if (resultado > 0){
-            alert(`El producto tiene un valor final de ${resultado}$ en ${cuotaElegida} ${mensaje}, \n\n Que tengas un lindo día!!!`)
+            alert(`Tu Compra tiene un valor final de ${resultado}$ en ${cuotaElegida} ${mensaje}, \n\n Que tengas un lindo día!!!`)
             return resultado
         }          
     }    
 }
 
-compra();
+
+
+let mensajeBienvenida = `Bienvenido a la tienda, `
+let mensajeMenu = " ";
+function seguirComprando(carro){
+    if (carro.length !== 0) {
+        mensajeMenu = `, si ya completaste tu compra ingresa el valor -1`;
+        mensajeBienvenida = ``;
+    }
+}
+
+function selecionarProducto(){
+    while (estadoCompra == 0){
+        seguirComprando(carrito);
+        alert (`${mensajeBienvenida}a continuación te vamos a mostrar el listado de productos disponibles para comprar ${mensajeMenu}`);
+        console.log(`Listado de productos actualizados: \n`)
+        let productosDisponibles = productos.filter((producto) => producto.cantidad > 0);
+        productosDisponibles.forEach(producto => {
+        console.log(`${producto.id} - ${producto.nombre} - ${producto.marca}: $${producto.precio} ARS - Cantidad: ${producto.cantidad}`);
+        });
+        console.log (`Cantidad productos: ${productosDisponibles.length}`)
+        function idExiste(id) {
+            return productosDisponibles.find(producto => producto.id === id);
+        }
+        let totalCarrito = carrito.reduce((total,producto)=> total + producto.precio, 0)
+        let selection = parseInt(prompt(`Ingresa el id del producto , si no quieres realizar ninguna compra presiona "0"${mensajeMenu}`))
+        if (isNaN(selection)) {
+        alert('Ingresar un valor númerico por favor');
+        } else if (selection == 0){
+            estadoCompra = 2;
+        } else if (selection == -1){
+            estadoCompra = 1;
+            console.log(`Este es tu carrito: El total de es de ${totalCarrito}`)
+            carrito.forEach(producto => {
+                console.log(`${producto.nombre} - ${producto.marca}: $${producto.precio} ARS- ${producto.descripcion}`);
+            });
+            valorProd = totalCarrito;
+            comprar();
+            productosDisponibles = productos;
+        
+        } else if (idExiste(selection)){
+                    const filtro = productosDisponibles.filter((producto) => producto.id == selection);
+                    // filtro.forEach(producto => {
+                    //     console.log(` este es el filtro ${producto.id} - ${producto.nombre} - ${producto.marca}: $${producto.precio} ARS - Cantidad: ${producto.cantidad}`);
+                    //     });
+                    carrito.push(filtro[0]);
+                    // console.log("agrego lo filtrado al carrito");
+                    console.log("Carrito:")
+                    carrito.forEach(producto=> {
+                        console.log(`${producto.id} - ${producto.nombre} - ${producto.marca}: $${producto.precio} ARS`);
+                    });
+                    console.log(`Total Productos: ${carrito.length}`)
+                    productos = productosDisponibles.map (producto => {
+                        if (producto.id === selection) {
+                        return {
+                            ...producto,
+                            cantidad: producto.cantidad - 1
+                            };
+                        }
+                        return producto;
+                    });
+        } else {
+            alert('Por favor ingresar un id válido')
+        }   
+    }
+}  
+
+
+selecionarProducto();
