@@ -73,12 +73,22 @@ let productos = [
         img: '../img/image1.png'
     }
 ];
-const carrito = [];
 
 let productosDisponibles = productos.filter((producto) => producto.cantidad > 0);
 
-let contenedor = document.querySelector('.box')
+//obtengo el carrito//
+//obtengo el carrito
+let carrito = JSON.parse(localStorage.getItem('carrito'));
+//generando el contador
+let contadorCarrito = document.querySelector('.contador')
+let contador = carrito.length
+contadorCarrito.innerHTML += `
+<span class="badge rounded-pill text-bg-info">${contador}</span>
+`
+////////
 
+
+let contenedor = document.querySelector('.box')
 productosDisponibles.forEach((producto)=> {
     let tarjeta = document.querySelector('template').content.cloneNode(true)
     tarjeta.querySelector('img').src = producto.img
@@ -86,8 +96,22 @@ productosDisponibles.forEach((producto)=> {
     tarjeta.querySelector('.desc').textContent = producto.descripcion
     tarjeta.querySelector('.precio').textContent += producto.precio
     tarjeta.querySelector('img')
-    tarjeta.querySelector('button')
-
+    tarjeta.querySelector('.cant').textContent += producto.cantidad
+    let seleccion = tarjeta.querySelector('button')
+    seleccion.addEventListener('click',()=>{
+        carrito.push(producto);
+        guardarLocal(); 
+        window.location.reload();
+    })
+    //renderizo las tarjetas
     contenedor.append(tarjeta)
-})
+    
+});
+
+
+function guardarLocal(){
+    localStorage.setItem("carrito",JSON.stringify(carrito))
+};
+
+
 
