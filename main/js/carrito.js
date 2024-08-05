@@ -40,17 +40,15 @@ function comprobarCarrito (){
     botonVaciar.innerHTML +=`
     <button type="button" class="btn btn-danger">Vaciar Carrito</button>
     `
-        
-        
-        let botonComprar = document.querySelector('.buy');
-botonComprar.innerHTML +=`
-<button type="button" class="btn btn-success">Comprar</button>
-`
-let seleccion = botonVaciar.querySelector('button')
-    seleccion.addEventListener('click',()=>{
+    let botonComprar = document.querySelector('.buy');
+    botonComprar.innerHTML +=`
+    <button type="button" class="btn btn-success">Comprar</button>
+    `
+    let seleccion = botonVaciar.querySelector('button')
+        seleccion.addEventListener('click',()=>{
         vaciarCarrito()
         window.location.reload();
-    })
+        });
 
     }
 }
