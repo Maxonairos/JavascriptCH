@@ -77,15 +77,14 @@ let productos = [
 let productosDisponibles = productos.filter((producto) => producto.cantidad > 0);
 
 //obtengo el carrito//
-//obtengo el carrito
-let carrito = JSON.parse(localStorage.getItem('carrito'));
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 //generando el contador
 let contadorCarrito = document.querySelector('.contador')
 let contador = carrito.length
 contadorCarrito.innerHTML += `
 <span class="badge rounded-pill text-bg-info">${contador}</span>
 `
-////////
+
 
 
 let contenedor = document.querySelector('.box')
@@ -100,7 +99,7 @@ productosDisponibles.forEach((producto)=> {
     let seleccion = tarjeta.querySelector('button')
     seleccion.addEventListener('click',()=>{
         carrito.push(producto);
-        guardarLocal(); 
+        guardarLocal();
         window.location.reload();
     })
     //renderizo las tarjetas

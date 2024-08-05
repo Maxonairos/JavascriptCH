@@ -1,5 +1,5 @@
 //obtengo el carrito
-let carrito = JSON.parse(localStorage.getItem('carrito'));
+let carrito = JSON.parse(localStorage.getItem('carrito'))|| [];
 //generando el contador
 let contadorCarrito = document.querySelector('.contador')
 let contador = carrito.length
