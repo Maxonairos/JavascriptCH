@@ -17,10 +17,11 @@ function vaciarCarrito(){
 //obtengo contenedor//
 let contenedor = document.querySelector('.box')
 
+let totalCarrito;
 
-function totalCarrito(producto){
-    let resultado = carrito.reduce((total,producto)=> total + producto.precio, 0);
-    console.log(resultado)
+function obtenerTotalCarrito(){
+    totalCarrito = carrito.reduce((total,producto)=> total + producto.precio, 0);
+    console.log(totalCarrito)
 }
 
 const AgruparId = carrito.reduce((acumulador, producto) => {
@@ -47,6 +48,8 @@ carritoAgrupado.forEach((producto)=> {
 
 function comprobarCarrito (){
     if (carrito.length >= 1 ) {
+        let totalizador = document.querySelector('.box3');
+    totalizador.innerHTML += `<li class="list-group-item">Total: $${totalCarrito}</li>`
         let botonVaciar = document.querySelector('.cart');
     botonVaciar.innerHTML +=`
     <button type="button" class="btn btn-danger">Vaciar Carrito</button>
@@ -60,7 +63,10 @@ function comprobarCarrito (){
         vaciarCarrito()
         window.location.reload();
         });
+    
     }
 }
 
+obtenerTotalCarrito()
 comprobarCarrito()
+
