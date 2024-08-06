@@ -54,7 +54,7 @@ function comprobarCarrito (){
           <div class="h3 ms-2 m-auto">Total: $${totalCarrito}
           <div class=" fw-bold"></div>
           </div>
-          <span class="badge text-bg-success rounded-pill"></span>
+          <span class="badge text-bg-success rounded-pill">${carrito.length}</span>
         </li>
       </ol>`
         let botonVaciar = document.querySelector('.cart');
