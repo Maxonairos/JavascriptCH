@@ -49,7 +49,7 @@ carritoAgrupado.forEach((producto)=> {
 function comprobarCarrito (){
     if (carrito.length >= 1 ) {
         let totalizador = document.querySelector('.box3');
-    totalizador.innerHTML += `<li class="list-group-item">Total: $${totalCarrito}</li>`
+    totalizador.innerHTML += `<li class="h3 list-group-item align-items-start">Total: $${totalCarrito}</li>`
         let botonVaciar = document.querySelector('.cart');
     botonVaciar.innerHTML +=`
     <button type="button" class="btn btn-danger">Vaciar Carrito</button>
