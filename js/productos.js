@@ -98,7 +98,14 @@ productosDisponibles.forEach((producto)=> {
     tarjeta.querySelector('.cant').textContent += producto.cantidad
     let seleccion = tarjeta.querySelector('button')
     seleccion.addEventListener('click',()=>{
-        carrito.push(producto);
+        carrito.push({
+            id: producto.id,
+            nombre: producto.nombre,
+            marca: producto.marca,
+            precio: producto.precio,
+            cantidad: 1,
+            img: producto.img
+        });
         guardarLocal();
         window.location.reload();
     })

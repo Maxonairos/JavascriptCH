@@ -17,22 +17,33 @@ function vaciarCarrito(){
 //obtengo contenedor//
 let contenedor = document.querySelector('.box')
 
-carrito.forEach((producto)=> {
-            let tarjeta = document.querySelector('template').content.cloneNode(true)
-            tarjeta.querySelector('img').src = producto.img
-            tarjeta.querySelector('h5').textContent = producto.nombre
-            tarjeta.querySelector('.desc').textContent = producto.descripcion
-            tarjeta.querySelector('.precio').textContent += producto.precio
-            tarjeta.querySelector('img')
-            //renderizar carrito//
-            contenedor.append(tarjeta)
-            
-        })
 
+function totalCarrito(producto){
+    let resultado = carrito.reduce((total,producto)=> total + producto.precio, 0);
+    console.log(resultado)
+}
 
+const AgruparId = carrito.reduce((acumulador, producto) => {
+    const id = producto.id;
+    if (acumulador[id]) {
+        acumulador[id].cantidad += producto.cantidad;
+    } else {
+        acumulador[id] = { ...producto };
+    }
+    return acumulador;
+}, {});
+//genero un array para poder iterar
+const carritoAgrupado = Object.values(AgruparId);
 
-///obtengo espacio para boton "vaciar carrito"
-
+carritoAgrupado.forEach((producto)=> {
+    let tarjeta = document.querySelector('template').content.cloneNode(true)
+    tarjeta.querySelector('.nombre').textContent = producto.nombre
+    tarjeta.querySelector('.nombre').textContent += ` - Precio: $${producto.precio}`
+    tarjeta.querySelector('.badge').innerHTML = producto.cantidad
+    
+    contenedor.append(tarjeta)
+    
+})
 
 function comprobarCarrito (){
     if (carrito.length >= 1 ) {
@@ -49,7 +60,6 @@ function comprobarCarrito (){
         vaciarCarrito()
         window.location.reload();
         });
-
     }
 }
 
