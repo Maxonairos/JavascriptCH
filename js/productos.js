@@ -73,51 +73,84 @@ let productos = [
         img: '../img/image8.jpg'
     }
 ];
-
-let productosDisponibles = productos.filter((producto) => producto.cantidad > 0);
+let productosActualizados;
+let productosDisponibles;
 
 //obtengo el carrito//
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 //generando el contador
-let contadorCarrito = document.querySelector('.contador')
-let contador = carrito.length
-contadorCarrito.innerHTML += `
+function mostrarCarrito(){
+    let contadorCarrito = document.querySelector('.contador')
+    let contador = carrito.length
+    contadorCarrito.innerHTML += `
 <span class="badge rounded-pill text-bg-info">${contador}</span>
 `
+}
+productosActualizados = productos.filter((producto) => producto.cantidad > 0);
 
 
+function actualizarContador(){
+    let contadorCarrito = document.querySelector('.contador')
+    let contador = carrito.length
+    contadorCarrito.innerHTML = `
+<span class="badge rounded-pill text-bg-info">${contador}</span>
+`
+}
+function actualizarProductos(){
+    productosActualizados = productosDisponibles;
+}
 
 let contenedor = document.querySelector('.box')
-productosDisponibles.forEach((producto)=> {
-    let tarjeta = document.querySelector('template').content.cloneNode(true)
-    tarjeta.querySelector('img').src = producto.img
-    tarjeta.querySelector('h5').textContent = producto.nombre
-    tarjeta.querySelector('.desc').textContent = producto.descripcion
-    tarjeta.querySelector('.precio').textContent += `${producto.precio} ARS`
-    tarjeta.querySelector('img')
-    tarjeta.querySelector('.cant').textContent += producto.cantidad
-    let seleccion = tarjeta.querySelector('button')
-    seleccion.addEventListener('click',()=>{
-        carrito.push({
-            id: producto.id,
-            nombre: producto.nombre,
-            marca: producto.marca,
-            precio: producto.precio,
-            cantidad: 1,
-            img: producto.img
-        });
-        guardarLocal();
-        window.location.reload();
-    })
-    //renderizo las tarjetas
-    contenedor.append(tarjeta)
-    
-});
+function renderizarProductos(){
+    contenedor.innerHTML = ''; 
+    productosDisponibles = productosActualizados.filter((producto) => producto.cantidad > 0);
+    productosDisponibles.forEach((producto)=> {
+        let tarjeta = document.querySelector('template').content.cloneNode(true)
+        tarjeta.querySelector('img').src = producto.img
+        tarjeta.querySelector('h5').textContent = producto.nombre
+        tarjeta.querySelector('.desc').textContent = producto.descripcion
+        tarjeta.querySelector('.precio').textContent += `$ ${producto.precio} ARS`
+        tarjeta.querySelector('.cant').textContent = `Cantidad: ${producto.cantidad}` 
+        let seleccion = tarjeta.querySelector('button')
+        seleccion.addEventListener('click',()=>{
+            carrito.push({
+                    id: producto.id,
+                    nombre: producto.nombre,
+                    marca: producto.marca,
+                    precio: producto.precio,
+                    cantidad: 1,
+                    img: producto.img
+                });
+                producto.cantidad -=1;
+                guardarLocal();      
+                renderizarProductos();
+                actualizarContador();
+                actualizarProductos(); 
+            })
+        contenedor.append(tarjeta)
+        
+        
+    });
+}
+
+renderizarProductos();
+mostrarCarrito()
 
 
 function guardarLocal(){
     localStorage.setItem("carrito",JSON.stringify(carrito))
 };
 
+function actualizarDisp(seleccion){
+    productosDisponibles.map (producto => {
+    if (producto.id == seleccion){
+        return {
+            ...producto,
+            cantidad: producto.cantidad - 1
+            };
+        }
+        return producto;
+    }
+)}
 
 
