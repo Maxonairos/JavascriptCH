@@ -76,6 +76,19 @@ let productos = [
 let productosActualizados;
 let productosDisponibles;
 
+function actualizarProdLocal(){
+    localStorage.setItem("productos",JSON.stringify(productosDisponibles))
+}
+function obtenerProductos(){
+    if (localStorage.getItem('productos')){
+        productosActualizados = JSON.parse(localStorage.getItem('productos'))
+    } else {
+        productosActualizados = productos.filter((producto) => producto.cantidad > 0);
+    }
+}
+
+obtenerProductos()
+
 //obtengo el carrito//
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 //generando el contador
@@ -86,7 +99,7 @@ function mostrarCarrito(){
 <span class="badge rounded-pill text-bg-info">${contador}</span>
 `
 }
-productosActualizados = productos.filter((producto) => producto.cantidad > 0);
+
 
 
 function actualizarContador(){
@@ -96,9 +109,7 @@ function actualizarContador(){
 <span class="badge rounded-pill text-bg-info">${contador}</span>
 `
 }
-function actualizarProductos(){
-    productosActualizados = productosDisponibles;
-}
+
 
 let contenedor = document.querySelector('.box')
 function renderizarProductos(){
@@ -125,7 +136,7 @@ function renderizarProductos(){
                 guardarLocal();      
                 renderizarProductos();
                 actualizarContador();
-                actualizarProductos(); 
+                actualizarProdLocal();
             })
         contenedor.append(tarjeta)
         
@@ -133,13 +144,14 @@ function renderizarProductos(){
     });
 }
 
+
 renderizarProductos();
 mostrarCarrito()
 
 
 function guardarLocal(){
     localStorage.setItem("carrito",JSON.stringify(carrito))
-};
+}
 
 function actualizarDisp(seleccion){
     productosDisponibles.map (producto => {
