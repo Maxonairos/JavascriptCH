@@ -1,5 +1,5 @@
 
-let productos = [
+let productosBase = [
     {
         id: 1,
         nombre: "Laptop",
@@ -59,7 +59,7 @@ let productos = [
         nombre: "Teclado Mecánico",
         marca: "Corsair",
         precio: 12000,
-        cantidad: 0,
+        cantidad: 1,
         descripcion: "Teclado mecánico RGB con switches Cherry MX Red",
         img: '../img/image7.jpg'
     },
@@ -73,7 +73,8 @@ let productos = [
         img: '../img/image8.jpg'
     }
 ];
-let productosActualizados;
+let productos = productosBase;
+let productosEnCarrito;
 let productosDisponibles;
 
 function actualizarProdLocal(){
@@ -81,9 +82,9 @@ function actualizarProdLocal(){
 }
 function obtenerProductos(){
     if (localStorage.getItem('productos')){
-        productosActualizados = JSON.parse(localStorage.getItem('productos'))
+        productosEnCarrito = JSON.parse(localStorage.getItem('productos'))
     } else {
-        productosActualizados = productos.filter((producto) => producto.cantidad > 0);
+        productosEnCarrito = productos.filter((producto) => producto.cantidad > 0);
     }
 }
 
@@ -114,7 +115,7 @@ function actualizarContador(){
 let contenedor = document.querySelector('.box')
 function renderizarProductos(){
     contenedor.innerHTML = ''; 
-    productosDisponibles = productosActualizados.filter((producto) => producto.cantidad > 0);
+    productosDisponibles = productosEnCarrito.filter((producto) => producto.cantidad > 0);
     productosDisponibles.forEach((producto)=> {
         let tarjeta = document.querySelector('template').content.cloneNode(true)
         tarjeta.querySelector('img').src = producto.img
