@@ -93,7 +93,7 @@ productosDisponibles.forEach((producto)=> {
     tarjeta.querySelector('img').src = producto.img
     tarjeta.querySelector('h5').textContent = producto.nombre
     tarjeta.querySelector('.desc').textContent = producto.descripcion
-    tarjeta.querySelector('.precio').textContent += producto.precio
+    tarjeta.querySelector('.precio').textContent += `${producto.precio} ARS`
     tarjeta.querySelector('img')
     tarjeta.querySelector('.cant').textContent += producto.cantidad
     let seleccion = tarjeta.querySelector('button')

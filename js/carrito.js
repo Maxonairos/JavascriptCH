@@ -39,7 +39,7 @@ const carritoAgrupado = Object.values(AgruparId);
 carritoAgrupado.forEach((producto)=> {
     let tarjeta = document.querySelector('template').content.cloneNode(true)
     tarjeta.querySelector('.nombre').textContent = producto.nombre
-    tarjeta.querySelector('.nombre').textContent += ` - Precio: $${producto.precio}`
+    tarjeta.querySelector('.nombre').textContent += ` - Precio: $${producto.precio} ARS`
     tarjeta.querySelector('.badge').innerHTML = producto.cantidad
     
     contenedor.append(tarjeta)
@@ -51,7 +51,7 @@ function comprobarCarrito (){
         let totalizador = document.querySelector('.box3');
     totalizador.innerHTML += `<ol class="list-group">
         <li class="list-group-item d-flex col col-sm-6 align-self-center m-2">
-          <div class="h3 ms-2 m-auto">Total: $${totalCarrito}
+          <div class="h4 ms-2 m-auto">Total: $${totalCarrito} ARS
           <div class=" fw-bold"></div>
           </div>
           <span class="badge text-bg-success rounded-pill">${carrito.length}</span>
@@ -63,7 +63,7 @@ function comprobarCarrito (){
     `
     let botonComprar = document.querySelector('.buy');
     botonComprar.innerHTML +=`
-    <button type="button" class="btn btn-success">Comprar</button>
+    <button type="button" class="btn btn-success"><a class="nav-link " href="./comprar.html">Comprar</a></button>
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
