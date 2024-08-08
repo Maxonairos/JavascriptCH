@@ -1,10 +1,16 @@
 let productosUrl = 'https://45680e03-f2d0-46b4-91bf-4bc5e2f30fcb.mock.pstmn.io/api/datos'
-
 let productos = [];
 let productosEnCarrito;
 let productosDisponibles;
-
-
+let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
+let contenedor = document.querySelector('.box')
+function mostrarCarrito(){
+    let contadorCarrito = document.querySelector('.contador')
+    let contador = carrito.length
+    contadorCarrito.innerHTML += `
+<span class="badge rounded-pill text-bg-info">${contador}</span>
+`;
+}
 function actualizarProdLocal(){
     localStorage.setItem("productos",JSON.stringify(productosDisponibles))
 }
@@ -16,17 +22,6 @@ function obtenerProductos(){
     }
 }
 
-let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
-function mostrarCarrito(){
-    let contadorCarrito = document.querySelector('.contador')
-    let contador = carrito.length
-    contadorCarrito.innerHTML += `
-<span class="badge rounded-pill text-bg-info">${contador}</span>
-`;
-}
-
-
-
 function actualizarContador(){
     let contadorCarrito = document.querySelector('.contador')
     let contador = carrito.length
@@ -34,8 +29,6 @@ function actualizarContador(){
 <span class="badge rounded-pill text-bg-info">${contador}</span>
 `
 }
-
-
 
 function renderizarProductos(){
     contenedor.innerHTML = ''; 
@@ -68,11 +61,9 @@ function renderizarProductos(){
         
     });
 }
-
 function guardarLocal(){
     localStorage.setItem("carrito",JSON.stringify(carrito))
 }
-
 function actualizarDisp(seleccion){
     productosDisponibles.map (producto => {
     if (producto.id == seleccion){
@@ -94,5 +85,3 @@ fetch(productosUrl)
     mostrarCarrito();
 })
 .catch(error=> console.log(error))
-
-let contenedor = document.querySelector('.box')
