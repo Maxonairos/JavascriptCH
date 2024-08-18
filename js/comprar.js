@@ -119,7 +119,7 @@ function renderizarCuotasDisp(){
         let tarjeta = document.querySelector('template').content.cloneNode(true)
         tarjeta.querySelector('label').textContent = `${cuota.cuotas} Cuota/s `
         tarjeta.querySelector('label').textContent += `- Valor Final ${cuota.calcular(totalCarrito)} ARS`
-        tarjeta.querySelector('label').textContent += ` - Tasa de Interes del ${cuota.tasaInteres}%` 
+        tarjeta.querySelector('label').textContent += ` - Tasa de Interés del ${cuota.tasaInteres}%` 
         let seleccion = tarjeta.querySelector('input')
             seleccion.addEventListener('click',()=>{
             seleccionCompra.splice(0);
