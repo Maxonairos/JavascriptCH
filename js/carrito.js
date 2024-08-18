@@ -14,6 +14,7 @@ function vaciarCarrito(){
         console.log(`Tu carrito quedó vacio`)
 }
 
+
 //obtengo contenedor//
 let contenedor = document.querySelector('.box')
 
@@ -59,7 +60,7 @@ function comprobarCarrito (){
       </ol>`
         let botonVaciar = document.querySelector('.cart');
     botonVaciar.innerHTML +=`
-    <button type="button" class="btn btn-danger">Vaciar Carrito</button>
+    <button type="button" class="btn btn-danger">Vaciar Carrito</a></button>
     `
     let botonComprar = document.querySelector('.buy');
     botonComprar.innerHTML +=`
@@ -67,8 +68,9 @@ function comprobarCarrito (){
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
-        vaciarCarrito()
-        window.location.reload();
+        vaciarCarrito();
+        mostrarToastVaciar();
+        
         });
     
     }

@@ -55,6 +55,7 @@ function renderizarProductos(){
                 renderizarProductos();
                 actualizarContador();
                 actualizarProdLocal();
+                mostrarToastProd();
             })
         contenedor.append(tarjeta)
         
@@ -75,6 +76,22 @@ function actualizarDisp(seleccion){
         return producto;
     }
 )}
+function mostrarToastProd(){
+    Toastify({
+        text: "Agregaste un Producto al carrito!!!",
+        duration: 3000,
+        close: true,
+        gravity: "top", 
+        position: "right",
+        stopOnFocus: true,
+        style: {
+          background: "#198754",
+        },
+        onClick: function(){
+            window.location.href = './carrito.html'
+        }
+      }).showToast();
+}
 
 fetch(productosUrl)
 .then(response => response.json())

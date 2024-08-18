@@ -83,7 +83,7 @@ function comprobarCompra (){
       </ol>`
         let botonVaciar = document.querySelector('.empty');
     botonVaciar.innerHTML =`
-    <button type="button" class="btn btn-danger"><a class="nav-link " href="../index.html">Cancelar Compra</a></button>
+    <button type="button" class="btn btn-danger">Cancelar Compra</a></button>
     `
     let verCarrito = document.querySelector('.cart');
     verCarrito.innerHTML =`
@@ -91,15 +91,18 @@ function comprobarCompra (){
     `
     let botonComprar = document.querySelector('.buy');
     botonComprar.innerHTML =`
-    <button type="button" class="btn btn-success"><a class="nav-link " href="../index.html">Confimar Compra</a></button>
+    <button type="button" class="btn btn-success">Confimar Compra</a></button>
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
         vaciarCarrito()
+        mostrarToastVaciar();
         }); 
     let comprar = botonComprar.querySelector('button')
         comprar.addEventListener('click',()=>{
             vaciarCarrito();
+            mostrarToastCompra();
+            
         })    
     }
     
@@ -132,6 +135,38 @@ function renderizarCuotasDisp(){
         contenedor.append(tarjeta)
         
     });
+}
+function mostrarToastVaciar(){
+    Toastify({
+        text: "Tu compra ha sido cancelada 😢",
+        duration: 3000,
+        close: true,
+        gravity: "top", 
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "#dc3545",
+        },
+        callback(){
+            window.location.href = './productos.html';
+        }
+      }).showToast();
+}
+function mostrarToastCompra(){
+    Toastify({
+        text: "Muchas Gracias por tu compra, Vuelve Pronto!!!",
+        duration: 3000,
+        close: true,
+        gravity: "top", 
+        position: "center",
+        stopOnFocus: true,
+        style: {
+          background: "#198754",
+        },
+        callback(){
+            window.location.href = '../index.html';
+        }
+      }).showToast();
 }
 
 comprobarCarrito()
