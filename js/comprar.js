@@ -79,25 +79,36 @@ function comprobarCompra (){
         <div class="h4 ms-2 m-auto">Total: $${seleccionCompra[0].total} ARS
           <div class=" fw-bold"></div>
           </div>
-          <span class="badge text-bg-success rounded-pill">$</span>
         </li>
       </ol>`
-        let botonVaciar = document.querySelector('.cart');
+        let botonVaciar = document.querySelector('.empty');
     botonVaciar.innerHTML =`
-    <button type="button" class="btn btn-danger">Cancelar Compra</button>
+    <button type="button" class="btn btn-danger"><a class="nav-link " href="../index.html">Cancelar Compra</a></button>
+    `
+    let verCarrito = document.querySelector('.cart');
+    verCarrito.innerHTML =`
+    <button type="button" class="btn btn-success"><a class="nav-link " href="./carrito.html">Ver Carrito</a></button>
     `
     let botonComprar = document.querySelector('.buy');
     botonComprar.innerHTML =`
-    <button type="button" class="btn btn-success"><a class="nav-link " href="./comprar.html">Confimar Compra</a></button>
+    <button type="button" class="btn btn-success"><a class="nav-link " href="../index.html">Confimar Compra</a></button>
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
         vaciarCarrito()
-        window.location.reload();
         }); 
+    let comprar = botonComprar.querySelector('button')
+        comprar.addEventListener('click',()=>{
+            vaciarCarrito();
+        })    
     }
+    
 }
-
+function comprobarCarrito (){
+    if (carrito.length >= 1 ) {
+        renderizarCuotasDisp();
+    }
+}    
 
 function renderizarCuotasDisp(){
     cuotas.forEach((cuota)=> {
@@ -123,4 +134,4 @@ function renderizarCuotasDisp(){
     });
 }
 
-renderizarCuotasDisp();
+comprobarCarrito()
