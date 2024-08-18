@@ -75,13 +75,13 @@ function comprobarCompra (){
     if (seleccionCompra.length >= 1 ) {
         let totalizador = document.querySelector('.box3');
     totalizador.innerHTML = `<ol class="list-group">
-        <li class="list-group-item d-flex col col-sm-6 align-self-center m-2">
-        <div class="h5 ms-2 m-auto">SubTotal: $${totalCarrito} ARS
+        <li class="list-group-item d-flex col col-sm-6 align-self-center m-auto p-1">
+        <div class="h5 m-auto">SubTotal: $${totalCarrito} ARS
           <div class=" fw-bold"></div>
           </div>
         </li>
-        <li class="list-group-item d-flex col col-sm-6 align-self-center m-2">
-        <div class="h4 ms-2 m-auto">Total: $${seleccionCompra[0].total} ARS
+        <li class="list-group-item d-flex col col-sm-6 align-self-center m-auto p-1">
+        <div class="h4 m-auto">Total: $${seleccionCompra[0].total} ARS
           <div class=" fw-bold"></div>
           </div>
         </li>
