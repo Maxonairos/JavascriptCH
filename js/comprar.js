@@ -1,7 +1,7 @@
 const cuotas = [
     {
         cuotas: 1,
-        tasaInteres: 0,  // Tasa de interés para 3 cuotas
+        tasaInteres: 0,  // Tasa de interés para 1 cuota
         calcular: function(valor) {
             const resultado = (valor * this.tasaInteres / 100) + valor;
             console.log(`El cálculo de la cuota para ${this.cuotas} cuotas es: ${resultado}`);
@@ -55,7 +55,7 @@ contadorCarrito.innerHTML += `
 `
 ////////
 let totalCarrito;
-
+let seleccionCompra = [];
 //obtengo contenedor//
 let contenedor = document.querySelector('.box')
 
@@ -70,14 +70,57 @@ function obtenerTotalCarrito(){
     console.log(totalCarrito)
 }
 
-cuotas.forEach((cuota)=> {
-    obtenerTotalCarrito()
-    let tarjeta = document.querySelector('template').content.cloneNode(true)
-    tarjeta.querySelector('label').textContent = `${cuota.cuotas} Cuota/s `
-    tarjeta.querySelector('label').textContent += `- Valor Final ${cuota.calcular(totalCarrito)} ARS`
-    tarjeta.querySelector('label').textContent += ` - Tasa de Interes del ${cuota.tasaInteres}%` 
-    
-    
-    contenedor.append(tarjeta)
-    
-})
+//compruebo que haya una seleccion de parte del usuario para mostrar los botones para avanzar
+function comprobarCompra (){
+    if (seleccionCompra.length >= 1 ) {
+        let totalizador = document.querySelector('.box3');
+    totalizador.innerHTML = `<ol class="list-group">
+        <li class="list-group-item d-flex col col-sm-6 align-self-center m-2">
+        <div class="h4 ms-2 m-auto">Total: $${seleccionCompra[0].total} ARS
+          <div class=" fw-bold"></div>
+          </div>
+          <span class="badge text-bg-success rounded-pill">$</span>
+        </li>
+      </ol>`
+        let botonVaciar = document.querySelector('.cart');
+    botonVaciar.innerHTML =`
+    <button type="button" class="btn btn-danger">Cancelar Compra</button>
+    `
+    let botonComprar = document.querySelector('.buy');
+    botonComprar.innerHTML =`
+    <button type="button" class="btn btn-success"><a class="nav-link " href="./comprar.html">Confimar Compra</a></button>
+    `
+    let seleccion = botonVaciar.querySelector('button')
+        seleccion.addEventListener('click',()=>{
+        vaciarCarrito()
+        window.location.reload();
+        }); 
+    }
+}
+
+
+function renderizarCuotasDisp(){
+    cuotas.forEach((cuota)=> {
+        obtenerTotalCarrito()
+        let tarjeta = document.querySelector('template').content.cloneNode(true)
+        tarjeta.querySelector('label').textContent = `${cuota.cuotas} Cuota/s `
+        tarjeta.querySelector('label').textContent += `- Valor Final ${cuota.calcular(totalCarrito)} ARS`
+        tarjeta.querySelector('label').textContent += ` - Tasa de Interes del ${cuota.tasaInteres}%` 
+        let seleccion = tarjeta.querySelector('input')
+            seleccion.addEventListener('click',()=>{
+            seleccionCompra.splice(0);
+            seleccionCompra.push({
+                tasaElegida: cuota.tasaInteres,
+                cuota: cuota.cuotas,
+                total: cuota.calcular(totalCarrito),
+                
+            });
+            comprobarCompra();
+            })
+        
+        contenedor.append(tarjeta)
+        
+    });
+}
+
+renderizarCuotasDisp();
