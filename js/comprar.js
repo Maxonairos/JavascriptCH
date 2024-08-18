@@ -76,6 +76,11 @@ function comprobarCompra (){
         let totalizador = document.querySelector('.box3');
     totalizador.innerHTML = `<ol class="list-group">
         <li class="list-group-item d-flex col col-sm-6 align-self-center m-2">
+        <div class="h5 ms-2 m-auto">SubTotal: $${totalCarrito} ARS
+          <div class=" fw-bold"></div>
+          </div>
+        </li>
+        <li class="list-group-item d-flex col col-sm-6 align-self-center m-2">
         <div class="h4 ms-2 m-auto">Total: $${seleccionCompra[0].total} ARS
           <div class=" fw-bold"></div>
           </div>
@@ -118,7 +123,7 @@ function renderizarCuotasDisp(){
         obtenerTotalCarrito()
         let tarjeta = document.querySelector('template').content.cloneNode(true)
         tarjeta.querySelector('label').textContent = `${cuota.cuotas} Cuota/s `
-        tarjeta.querySelector('label').textContent += `- Valor Final ${cuota.calcular(totalCarrito)} ARS`
+        //tarjeta.querySelector('label').textContent += `- Valor Final ${cuota.calcular(totalCarrito)} ARS`
         tarjeta.querySelector('label').textContent += ` - Tasa de Interés del ${cuota.tasaInteres}%` 
         let seleccion = tarjeta.querySelector('input')
             seleccion.addEventListener('click',()=>{
@@ -140,7 +145,6 @@ function mostrarToastVaciar(){
     Toastify({
         text: "Tu compra ha sido cancelada 😢",
         duration: 3000,
-        close: true,
         gravity: "top", 
         position: "center",
         stopOnFocus: true,
@@ -156,7 +160,6 @@ function mostrarToastCompra(){
     Toastify({
         text: "Muchas Gracias por tu compra, Vuelve Pronto!!!",
         duration: 3000,
-        close: true,
         gravity: "top", 
         position: "center",
         stopOnFocus: true,
