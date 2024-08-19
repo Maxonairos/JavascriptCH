@@ -96,7 +96,7 @@ function comprobarCompra (){
     `
     let botonComprar = document.querySelector('.buy');
     botonComprar.innerHTML =`
-    <button type="button" class="btn btn-success">Confimar Compra</a></button>
+    <button type="button" class="btn btn-success">Confirmar Compra</a></button>
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
