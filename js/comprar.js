@@ -74,7 +74,7 @@ function obtenerTotalCarrito(){
 function comprobarCompra (){
     if (seleccionCompra.length >= 1 ) {
         let totalizador = document.querySelector('.box3');
-    totalizador.innerHTML = `<ol class="list-group">
+    totalizador.innerHTML = `<ol data-aos="fade-down" class="list-group">
         <li class="list-group-item d-flex col col-sm-6 align-self-center m-auto p-1">
         <div class="h5 m-auto">SubTotal: $${totalCarrito} ARS
           <div class=" fw-bold"></div>
@@ -88,15 +88,15 @@ function comprobarCompra (){
       </ol>`
         let botonVaciar = document.querySelector('.empty');
     botonVaciar.innerHTML =`
-    <button type="button" class="btn btn-danger">Cancelar Compra</a></button>
+    <button data-aos="fade-down" type="button" class="btn btn-danger">Cancelar Compra</a></button>
     `
     let verCarrito = document.querySelector('.cart');
     verCarrito.innerHTML =`
-    <button type="button" class="btn btn-success"><a class="nav-link " href="./carrito.html">Ver Carrito</a></button>
+    <button data-aos="fade-down" type="button" class="btn btn-success"><a class="nav-link " href="./carrito.html">Ver Carrito</a></button>
     `
     let botonComprar = document.querySelector('.buy');
     botonComprar.innerHTML =`
-    <button type="button" class="btn btn-success">Confirmar Compra</a></button>
+    <button data-aos="fade-down" type="button" class="btn btn-success">Confirmar Compra</a></button>
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
