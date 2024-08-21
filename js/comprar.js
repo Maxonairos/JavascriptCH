@@ -55,7 +55,7 @@ contadorCarrito.innerHTML += `
 `
 ////////
 let totalCarrito;
-let seleccionCompra = [];
+let venta = [];
 //obtengo contenedor//
 let contenedor = document.querySelector('.box')
 
@@ -72,7 +72,7 @@ function obtenerTotalCarrito(){
 
 //compruebo que haya una seleccion de parte del usuario para mostrar los botones para avanzar
 function comprobarCompra (){
-    if (seleccionCompra.length >= 1 ) {
+    if (venta.length >= 1 ) {
         let totalizador = document.querySelector('.box3');
     totalizador.innerHTML = `<ol data-aos="fade-down" class="list-group">
         <li class="list-group-item d-flex col col-sm-6 align-self-center m-auto p-1">
@@ -81,7 +81,7 @@ function comprobarCompra (){
           </div>
         </li>
         <li class="list-group-item d-flex col col-sm-6 align-self-center m-auto p-1">
-        <div class="h4 m-auto">Total: $${seleccionCompra[0].total} ARS
+        <div class="h4 m-auto">Total: $${venta[0].total_precio} ARS
           <div class=" fw-bold"></div>
           </div>
         </li>
@@ -126,12 +126,13 @@ function renderizarCuotasDisp(){
         tarjeta.querySelector('label').textContent += ` - Tasa de Interés del ${cuota.tasaInteres}%` 
         let seleccion = tarjeta.querySelector('input')
             seleccion.addEventListener('click',()=>{
-            seleccionCompra.splice(0);
-            seleccionCompra.push({
+            venta.splice(0);
+            venta.push({
+                idVenta: 1,
                 tasaElegida: cuota.tasaInteres,
-                cuota: cuota.cuotas,
-                total: cuota.calcular(totalCarrito),
-                
+                cuota_cant: cuota.cuotas,
+                total_precio: cuota.calcular(totalCarrito),
+                descripcion: "Productos",             
             });
             comprobarCompra();
             })
