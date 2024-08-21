@@ -100,13 +100,12 @@ function comprobarCompra (){
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
-        vaciarCarrito()
-        mostrarToastVaciar();
+        toastCancSwAl();
         }); 
     let comprar = botonComprar.querySelector('button')
         comprar.addEventListener('click',()=>{
-            vaciarCarrito();
-            mostrarToastCompra();
+            toastCompExitosa();
+            
             
         })    
     }
@@ -159,10 +158,10 @@ function mostrarToastVaciar(){
 function mostrarToastCompra(){
     Toastify({
         text: "Muchas Gracias por tu compra, Vuelve Pronto!!!",
-        duration: 3000,
+        duration: 4000,
         gravity: "top", 
         position: "center",
-        stopOnFocus: true,
+        stopOnFocus: false,
         style: {
           background: "#198754",
         },
@@ -171,5 +170,45 @@ function mostrarToastCompra(){
         }
       }).showToast();
 }
+
+function toastCancSwAl (){
+    swal({
+        title: "Estas seguro de cancelar la compra?",
+        text: "Una vez cancelada la compra, se elimina el carrito",
+        icon: "warning",
+        buttons: {
+            cancel: "No",
+            ok: "Si, Cancelar Compra",
+        },
+        dangerMode: true,
+        closeOnClickOutside: false,
+      })
+      .then((borrar) => {
+        if (borrar) {
+          swal("se ha cancelado tu Compra", {
+            icon: "success",
+            buttons: false,
+            timer: 4000,
+            event: vaciarCarrito(),
+            event: mostrarToastVaciar(),
+          });
+        } else {
+          swal("Puedes continuar con tu compra");
+        }
+      });
+}
+
+function toastCompExitosa(){
+    swal({
+        title: "Comprar Realizada!!!",
+        text: "Muchas Gracias por elegirnos",
+        icon: "success",
+        timer: 4000,
+        event: vaciarCarrito(),
+        event: mostrarToastCompra(),
+        buttons: false
+      });
+}
+
 
 comprobarCarrito()

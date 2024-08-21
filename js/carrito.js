@@ -87,9 +87,7 @@ function comprobarCarrito (){
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
-        vaciarCarrito();
-        mostrarToastVaciar();
-        
+        toastVaciarSwAl();        
         });
     
     } else {
@@ -99,6 +97,31 @@ function comprobarCarrito (){
             <p class="text-body-secondary text-center col-9 align-self-center m-2">Carrito Vacio!!! para poder agregar productos por favor ir a la solapa "Productos"</p>
         </div>`
     }
+}
+function toastVaciarSwAl (){
+    swal({
+        title: "Estas seguro de vaciar el carrito?",
+        icon: "warning",
+        buttons: {
+            cancel: "No",
+            ok: "Si, vaciar carrito",
+        },
+        dangerMode: true,
+        closeOnClickOutside: false,
+      })
+      .then((borrar) => {
+        if (borrar) {
+          swal("Se ha vaciado el carrito", {
+            icon: "success",
+            buttons: false,
+            timer: 4000,
+            event: vaciarCarrito(),
+            event: mostrarToastVaciar(),
+          });
+        } else {
+          swal("Puedes continuar con tu compra");
+        }
+      });
 }
 
 obtenerTotalCarrito()
