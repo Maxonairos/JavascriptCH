@@ -1,3 +1,11 @@
+//const MP//
+const testPubKey = "TEST-fee61cdc-9349-4e9a-ac58-a2b57328ff5e";
+const apiUrl = "https://api-gamerstore.onrender.com";
+
+const mp = new MercadoPago(testPubKey, {
+    locale: "es-AR"
+});
+
 //obtengo el carrito
 let carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 //generando el contador
@@ -83,13 +91,13 @@ function comprobarCarrito (){
     `
     let botonComprar = document.querySelector('.buy');
     botonComprar.innerHTML +=`
-    <button type="button" class="btn btn-success"><a class="nav-link " href="./comprar.html">Comprar</a></button>
+    <button type="button" class="btn btn-success" id="checkout-btn">Comprar</button>
     `
     let seleccion = botonVaciar.querySelector('button')
         seleccion.addEventListener('click',()=>{
         toastVaciarSwAl();        
         });
-    
+    comprarMP();    
     } else {
         let mensajeVacio = document.querySelector('.box3');
         mensajeVacio.innerHTML = `
@@ -123,6 +131,72 @@ function toastVaciarSwAl (){
         }
       });
 }
+function mostrarToastCompra(){
+    Toastify({
+        text: "Muchas Gracias por tu compra, Vuelve Pronto!!!",
+        duration: 4000,
+        gravity: "top", 
+        position: "center",
+        stopOnFocus: false,
+      }).showToast();
+}
+function toastCompExitosa(){
+    swal({
+        title: "Comprar Realizada!!!",
+        text: "Muchas Gracias por elegirnos",
+        icon: "success",
+        timer: -1,
+        event: vaciarCarrito(),
+        event: mostrarToastCompra(),
+        buttons: true
+      });
+}
+///integrando proyecto mp
+function comprarMP(){
+  document.getElementById("checkout-btn").addEventListener("click", async () => {
+    try{
+        const orderData = {
+            title: "productos",
+            quantity: carrito.length,
+            price: totalCarrito,
+        }
+        
+        const response = await fetch(`${apiUrl}/create_preference`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderData),
+        }); 
+    
+        const preference = await response.json()
+        createCheckoutButton(preference.id);
+    } catch(error) {
+        alert("error");
+    }
+    
+  });
+  
+    const createCheckoutButton = (preferenceId) => {
+      const bricksBuilder = mp.bricks();
+  
+    const renderComponent =  async () => {
+        if (window.checkoutButton) window.checkoutButton.unmount();
+            window.checkoutButton = await bricksBuilder.create("wallet", "wallet_container", {
+            initialization: {
+                preferenceId: preferenceId,
+                
+            },
+        });
+    }  
+    renderComponent()
+    if (renderComponent){
+        vaciarCarrito();
+    }
+  }
+}
+
+
 
 obtenerTotalCarrito()
 comprobarCarrito()
